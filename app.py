@@ -4,7 +4,7 @@ import plotly.express as px
 from sklearn.linear_model import LinearRegression
 import numpy as np
 
-# 1. ESTILIZAÇÃO, TIPOGRAFIA E CONTRASTE PREMIUM (CSS)
+# 1. ESTILIZAÇÃO, TIPOGRAFIA E CONTRASTE PREMIUM (CSS COM MEDIA QUERIES)
 st.set_page_config(page_title="Análise de Dados: Vinho Verde Branco", layout="wide")
 
 st.markdown("""
@@ -141,31 +141,29 @@ except Exception as e:
     st.error(f"Erro ao processar as colunas do arquivo 'dados_vinho.xlsx'. Detalhes: {e}")
     st.stop()
 
-# 3. CONTEXTUALIZAÇÃO DO LEITOR (SOBRE O ESTUDO COM CRÉDITOS ACADÊMICOS OFICIAIS)
+# 3. INTRODUÇÃO REVISADA E POLIDA (SOBRE O ESTUDO)
 st.markdown("---")
 st.header("Sobre o Estudo")
 st.markdown(f"""
-Este projeto apresenta uma interface interativa construída por meio da mineração de dados aplicados a testes laboratoriais e sensoriais 
-do **Vinho Verde Branco**, uma variante originária e demarcada da região Norte de Portugal[cite: 12, 28]. O principal objetivo consiste em modelar 
-as preferências humanas e estimar a variável de qualidade da bebida puramente com base em seus ensaios físico-químicos[cite: 5, 53].
+Este projeto apresenta uma interface interativa construída por meio da mineração de dados aplicados a testes laboratoriais e sensoriais do Vinho Verde Branco, uma variante única produzida na região demarcada do Norte de Portugal[cite: 12, 28]. O principal objetivo consiste em modelar as preferências humanas e estimar a qualidade da bebida com base puramente em seus ensaios físico-químicos[cite: 5, 53].
 
 ### Como o estudo foi realizado?
-* **As Amostras:** Foram coletadas e limpas **{len(df):,}** instâncias reais de amostras de vinho branco pertencentes à base de dados[cite: 6, 20].
-* **Avaliação Sensorial:** Cada amostra passou por testes às cegas aplicados por especialistas do setor[cite: 7]. O vetor de saída final corresponde à **mediana de pelo menos 3 avaliações independentes** realizadas por esses sommeliers, mapeada em uma escala de **0 (muito ruim) a 10 (excelente)**[cite: 7, 8].
-* **Abordagem de Modelagem:** O comportamento dessas avaliações foi estruturado sob uma perspectiva matemática de regressão utilizando as 11 propriedades físico-químicas de entrada para treinar o algoritmo inteligente disposto ao final do painel[cite: 9, 22].
+* **As Amostras:** Foram coletadas e analisadas **{len(df):,}** amostras reais de vinho branco pertencentes à base de dados oficial[cite: 6, 20].
+* **Avaliação Sensorial:** Cada amostra passou por testes às cegas aplicados por especialistas do setor[cite: 7]. A nota de qualidade final representa a mediana de pelo menos três avaliações independentes realizadas por esses sommeliers, mapeada em uma escala que vai de 0 (muito ruim) a 10 (excelente)[cite: 7, 8].
+* **Modelagem Estatística:** O comportamento dessas avaliações foi estruturado sob uma perspectiva matemática de regressão. Essa técnica utiliza as 11 propriedades físico-químicas de entrada para treinar o algoritmo inteligente que você encontra ao final do painel[cite: 9, 22].
 
 ### O que significam as variáveis analisadas?
-De forma a tornar a compreensão simples e acessível, os 11 atributos de entrada do estudo estão divididos nas seguintes dimensões[cite: 22, 73]:
-1. **Estrutura e Acidez:** Reúne *Acidez Fixa*, *Acidez Volátil*, *Ácido Cítrico* e o índice de *pH*. Controlam o equilíbrio organoléptico e garantem estabilidade microbiológica à bebida[cite: 22].
-2. **Corpo e Doçura:** Composto pelo *Açúcar Residual* remanescente do processo de fermentação, pela *Densidade* do líquido e pela graduação de *Álcool*. Ditam a percepção de volume no paladar[cite: 22].
-3. **Estabilização e Conservação:** Contempla *Cloretos*, *Sulfatos* e as divisões de *Dióxido de Enxofre Livre* e *Total*. Desempenham papel vital na proteção antioxidante e conservação industrial[cite: 22].
+Para tornar a compreensão simples e direta, os 11 atributos químicos avaliados no estudo foram divididos em três dimensões principais[cite: 22, 73]:
+1. **Estrutura e Acidez:** Reúne a Acidez Fixa, a Acidez Volátil, o Ácido Cítrico e o índice de pH. Esses elementos controlam o equilíbrio de sabores e garantem a estabilidade microbiológica da bebida[cite: 22].
+2. **Corpo e Doçura:** Bloco composto pelo Açúcar Residual (remanescente do processo de fermentação), pela Densidade do líquido e pelo teor de Álcool. Juntos, eles ditam a percepção de volume, peso e consistência no paladar[cite: 22].
+3. **Estabilização e Conservação:** Contempla os Cloretos, os Sulfatos e as divisões de Dióxido de Enxofre Livre e Total. Esses componentes desempenham um papel vital na proteção antioxidante, evitando que o vinho estrague ou oxide com o tempo[cite: 22].
 
 ---
 ### Créditos e Licenciamento Oficial
-Este ecossistema foi disponibilizado publicamente pelo **UC Irvine Machine Learning Repository**. Os dados científicos originais foram gerados e publicados por **Paulo Cortez** *(Universidade do Minho)*, **António Cerdeira**, **Fernando Almeida**, **Telmo Matos** e **José Reis** em 2009[cite: 2, 45]. 
+Este ecossistema foi disponibilizado publicamente pelo **UC Irvine Machine Learning Repository**[cite: 23]. Os dados científicos originais foram gerados e publicados por **Paulo Cortez** *(Universidade do Minho)*, **António Cerdeira**, **Fernando Almeida**, **Telmo Matos** e **José Reis** em 2009[cite: 44, 45, 46, 47, 48, 49].
 
 * **Citação Acadêmica Recomendada:** *Cortez et al., 2009. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553.* [cite: 1, 3]
-* **Licença de Uso:** O banco de dados está licenciado sob a licença global **Creative Commons Atribuição 4.0 Internacional (CC BY 4.0)**, permitindo o compartilhamento, adaptação e uso livre sob atribuição de créditos[cite: 57, 58, 64].
+* **Licença de Uso:** O banco de dados está licenciado sob a licença global **Creative Commons Atribuição 4.0 Internacional (CC BY 4.0)**, permitindo o compartilhamento, adaptação e uso livre sob atribuição de créditos[cite: 57, 58].
 """.replace(',', '.'))
 
 st.markdown("---")
@@ -173,12 +171,12 @@ st.markdown("---")
 # 4. BARRA LATERAL INFORMATIVA
 st.sidebar.header("Contexto Técnico")
 st.sidebar.markdown("""
-Este painel apresenta a modelagem de preferência de vinhos através da mineração de propriedades físico-químicas.
+Este painel apresenta a modelagem de preferência de vinhos através da mineração de propriedades físico-químicas[cite: 3].
 
-* **Origem:** Dados do Vinho Verde Branco português (Cortez et al., 2009).
-* **Avaliação de Saída:** Baseada em dados sensoriais estruturados. A nota representa a mediana de pelo menos 3 avaliações independentes realizadas por especialistas do setor.
-* **Escala Sensorial:** Cada avaliador atribuiu uma pontuação de qualidade variando entre 0 (muito ruim) e 10 (excelente).
-* **Particularidade do Dataset:** As classes não são balanceadas; há uma quantidade significativamente maior de vinhos considerados intermediários ou comuns do que amostras excelentes ou muito ruins.
+* **Origem:** Dados do Vinho Verde Branco português (Cortez et al., 2009)[cite: 12].
+* **Avaliação de Saída:** Baseada em dados sensoriais estruturados[cite: 7]. A nota representa a mediana de pelo menos 3 avaliações independentes realizadas por especialistas do setor[cite: 7].
+* **Escala Sensorial:** Cada avaliador atribuiu uma pontuação de qualidade variando entre 0 (muito ruim) e 10 (excelente)[cite: 8].
+* **Particularidade do Dataset:** As classes não são balanceadas; há uma quantidade significativamente maior de vinhos considerados intermediários ou comuns do que amostras excelentes ou muito ruins[cite: 16].
 """)
 
 # 5. PAINEL DE MÉTRICAS OPERACIONAIS
@@ -333,7 +331,7 @@ st.markdown("""
 <div style="margin-top: 15px; padding: 15px; border-left: 3px solid #3A1111; background-color: #F0F0F0;">
     <p style="font-size: 13px; color: #444; line-height: 1.6; margin: 0;">
         <strong>Nota metodológica sobre o cálculo da composição ideal (Alvo Nota 10.0):</strong> 
-        O modelo matemático de Regressão Linear calcula coeficientes de peso para cada uma das 11 variáveis com base no histórico do laboratório. 
+        O modelo matemático de Regressão Linear calcula coeficientes de peso para cada uma das 11 variáveis com base no histórico do laboratório[cite: 9, 20]. 
         Ao acionar a composição recomendada, o sistema mapeia o subconjunto de vinhos reais com as maiores avaliações sensoriais e extrai a média 
         exata de seus componentes químicos. Complementarmente, para alcançar o topo absoluto da curva estatística (10.0), o algoritmo aplica as condições 
         ótimas dos dois principais pilares de impacto identificados no estudo de sensibilidade: maximização do teor alcoólico e minimização da acidez volátil.
