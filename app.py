@@ -141,24 +141,31 @@ except Exception as e:
     st.error(f"Erro ao processar as colunas do arquivo 'dados_vinho.xlsx'. Detalhes: {e}")
     st.stop()
 
-# 3. CONTEXTUALIZAÇÃO DO LEITOR (SOBRE O ESTUDO)
+# 3. CONTEXTUALIZAÇÃO DO LEITOR (SOBRE O ESTUDO COM CRÉDITOS ACADÊMICOS OFICIAIS)
 st.markdown("---")
 st.header("Sobre o Estudo")
 st.markdown(f"""
-Este projeto utiliza dados científicos baseados em testes laboratoriais e sensoriais aplicados ao **Vinho Verde Branco**, 
-uma variedade única produzida exclusivamente na região demarcada do Minho, no noroeste de Portugal. O objetivo principal é 
-entender como a composição química da bebida influencia diretamente na percepção de qualidade do consumidor final.
+Este projeto apresenta uma interface interativa construída por meio da mineração de dados aplicados a testes laboratoriais e sensoriais 
+do **Vinho Verde Branco**, uma variante originária e demarcada da região Norte de Portugal[cite: 12, 28]. O principal objetivo consiste em modelar 
+as preferências humanas e estimar a variável de qualidade da bebida puramente com base em seus ensaios físico-químicos[cite: 5, 53].
 
 ### Como o estudo foi realizado?
-* **As Amostras:** Foram analisadas **{len(df):,}** amostras físicas coletadas diretamente de produtores e certificadas pelo laboratório oficial da região.
-* **Avaliação Sensorial:** Cada vinho passou por um teste às cegas realizado por uma banca de especialistas do setor. Eles atribuíram notas de **0 (muito ruim) a 10 (excelente)**. A nota de qualidade final adotada neste estudo representa a mediana dessas avaliações.
-* **Análise de Dados:** Variáveis físico-químicas de cada garrafa foram mapeadas e correlacionadas com as notas, servindo como base para criar o simulador inteligente presente no final desta página.
+* **As Amostras:** Foram coletadas e limpas **{len(df):,}** instâncias reais de amostras de vinho branco pertencentes à base de dados[cite: 6, 20].
+* **Avaliação Sensorial:** Cada amostra passou por testes às cegas aplicados por especialistas do setor[cite: 7]. O vetor de saída final corresponde à **mediana de pelo menos 3 avaliações independentes** realizadas por esses sommeliers, mapeada em uma escala de **0 (muito ruim) a 10 (excelente)**[cite: 7, 8].
+* **Abordagem de Modelagem:** O comportamento dessas avaliações foi estruturado sob uma perspectiva matemática de regressão utilizando as 11 propriedades físico-químicas de entrada para treinar o algoritmo inteligente disposto ao final do painel[cite: 9, 22].
 
 ### O que significam as variáveis analisadas?
-Para facilitar o entendimento, os componentes químicos do vinho podem ser divididos em três grupos principais:
-1. **Estrutura e Acidez:** Componentes como a *Acidez Fixa*, *Acidez Volátil*, *Ácido Cítrico* e o *pH*. Eles determinam o frescor, o equilíbrio de sabores na boca e a estabilidade da bebida.
-2. **Corpo e Doçura:** O *Açúcar Residual* (quantidade de açúcar que sobrou após a fermentação), a *Densidade* e o teor de *Álcool*. Juntos, dão consistência, textura e a sensação de aquecimento ao paladar.
-3. **Conservação e Sais:** Os *Cloretos* (quantidade de sal), o *Sulfato* e os *Dióxidos de Enxofre* (conhecidos popularmente como sulfitos). São fundamentais para proteger o vinho contra bactérias e oxidação ao longo do tempo.
+De forma a tornar a compreensão simples e acessível, os 11 atributos de entrada do estudo estão divididos nas seguintes dimensões[cite: 22, 73]:
+1. **Estrutura e Acidez:** Reúne *Acidez Fixa*, *Acidez Volátil*, *Ácido Cítrico* e o índice de *pH*. Controlam o equilíbrio organoléptico e garantem estabilidade microbiológica à bebida[cite: 22].
+2. **Corpo e Doçura:** Composto pelo *Açúcar Residual* remanescente do processo de fermentação, pela *Densidade* do líquido e pela graduação de *Álcool*. Ditam a percepção de volume no paladar[cite: 22].
+3. **Estabilização e Conservação:** Contempla *Cloretos*, *Sulfatos* e as divisões de *Dióxido de Enxofre Livre* e *Total*. Desempenham papel vital na proteção antioxidante e conservação industrial[cite: 22].
+
+---
+### Créditos e Licenciamento Oficial
+Este ecossistema foi disponibilizado publicamente pelo **UC Irvine Machine Learning Repository**. Os dados científicos originais foram gerados e publicados por **Paulo Cortez** *(Universidade do Minho)*, **António Cerdeira**, **Fernando Almeida**, **Telmo Matos** e **José Reis** em 2009[cite: 2, 45]. 
+
+* **Citação Acadêmica Recomendada:** *Cortez et al., 2009. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553.* [cite: 1, 3]
+* **Licença de Uso:** O banco de dados está licenciado sob a licença global **Creative Commons Atribuição 4.0 Internacional (CC BY 4.0)**, permitindo o compartilhamento, adaptação e uso livre sob atribuição de créditos[cite: 57, 58, 64].
 """.replace(',', '.'))
 
 st.markdown("---")
@@ -328,7 +335,7 @@ st.markdown("""
         <strong>Nota metodológica sobre o cálculo da composição ideal (Alvo Nota 10.0):</strong> 
         O modelo matemático de Regressão Linear calcula coeficientes de peso para cada uma das 11 variáveis com base no histórico do laboratório. 
         Ao acionar a composição recomendada, o sistema mapeia o subconjunto de vinhos reais com as maiores avaliações sensoriais e extrai a média 
-        exata de seus componentes químicos. Complementarmente, para alcançar o topo absoluto da curva estatística (10.0), o algorithm aplica as condições 
+        exata de seus componentes químicos. Complementarmente, para alcançar o topo absoluto da curva estatística (10.0), o algoritmo aplica as condições 
         ótimas dos dois principais pilares de impacto identificados no estudo de sensibilidade: maximização do teor alcoólico e minimização da acidez volátil.
     </p>
 </div>
