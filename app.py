@@ -4,7 +4,7 @@ import plotly.express as px
 from sklearn.linear_model import LinearRegression
 import numpy as np
 
-# 1. ESTILIZAÇÃO, TIPOGRAFIA E CONTRASTE PREMIUM (CSS)
+# 1. ESTILIZAÇÃO PREMIUM E CSS RESPONSIVO PARA MOBILE
 st.set_page_config(page_title="Análise de Dados: Vinho Verde Branco", layout="wide")
 
 st.markdown("""
@@ -69,13 +69,33 @@ st.markdown("""
         font-family: 'Inter', sans-serif;
         letter-spacing: -1px;
     }
-    /* Alinhamento estético dos rótulos dos sliders */
     .slider-label {
         font-size: 14px;
         font-weight: 500;
         color: #2C2C2C;
         margin-bottom: -15px;
         margin-top: 10px;
+    }
+
+    /* REGRAS EXCLUSIVAS PARA DISPOSITIVOS MÓVEIS (MOBILE OPTIMIZATION) */
+    @media (max-width: 768px) {
+        h1 { font-size: 28px !important; }
+        h2 { font-size: 22px !important; }
+        h3 { font-size: 18px !important; }
+        h4 { font-size: 16px !important; }
+        
+        /* Reduz os blocos vazios e margens que o Streamlit gera */
+        div[data-testid="stVerticalBlock"] {
+            gap: 0.5rem !important;
+        }
+        .stMarkdown { margin-bottom: -10px !important; }
+        
+        /* Ajusta o tamanho da caixa de score final */
+        .score-box { padding: 20px !important; margin-top: 15px !important; }
+        .score-value { font-size: 38px !important; }
+        
+        /* Minimiza o recuo dos sliders para economizar espaço vertical */
+        .slider-label { margin-top: 5px !important; margin-bottom: -20px !important; font-size: 13px; }
     }
 </style>
 """, unsafe_allow_html=True)
@@ -124,12 +144,12 @@ except Exception as e:
     st.error(f"Erro ao processar as colunas do arquivo 'dados_vinho.xlsx'. Detalhes: {e}")
     st.stop()
 
-# 3. BARRA LATERAL INFORMATIVA
+# 3. BARRA LATERAL INFORMATIVA (CONTEÚDO DO SEU TXT)
 st.sidebar.header("Contexto Técnico")
 st.sidebar.markdown("""
-Este painel apresenta a modelagem de preferência de vinhos através da mineração de propriedades físico-químicas.
+Este painel apresenta a modelagem de preferência de vinhos através da mineração de propriedades físico-químicas[cite: 3].
 
-* **Origem:** Dados do Vinho Verde Branco português (Cortez et al., 2009)[cite: 12].
+* **Origem:** Dados do Vinho Verde Branco português (Cortez et al., 2009)[cite: 1, 12].
 * **Avaliação de Saída:** Baseada em dados sensoriais estruturados[cite: 7]. A nota representa a mediana de pelo menos 3 avaliações independentes realizadas por especialistas do setor[cite: 7].
 * **Escala Sensorial:** Cada avaliador atribuiu uma pontuação de qualidade variando entre 0 (muito ruim) e 10 (excelente)[cite: 8].
 * **Particularidade do Dataset:** As classes não são balanceadas; há uma quantidade significativamente maior de vinhos considerados intermediários ou comuns do que amostras excelentes ou muito ruins[cite: 16].
@@ -152,7 +172,6 @@ with col_graf1:
     st.subheader("Graduação Alcoólica Média")
     df_alcool_medio = df.groupby('Qualidade')['Álcool'].mean().reset_index()
     
-    # Aplicação de tom Borgonha/Cereja para o Álcool
     fig1 = px.bar(df_alcool_medio, x="Qualidade", y="Álcool",
                   text_auto='.1f',
                   labels={"Álcool": "Teor Alcoólico Médio (%)", "Qualidade": "Nota Sensorial (Avaliação)"},
@@ -161,6 +180,7 @@ with col_graf1:
     fig1.update_traces(textfont_color='#FFFFFF', textposition='inside')
     fig1.update_layout(
         showlegend=False, coloraxis_showscale=False, plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)',
+        margin=dict(l=10, r=10, t=30, b=10), # Margens internas responsivas otimizadas
         xaxis=dict(title_font=dict(color='#2C2C2C', size=14), tickfont=dict(color='#2C2C2C', size=12), gridcolor='#EFEFEF'),
         yaxis=dict(title_font=dict(color='#2C2C2C', size=14), tickfont=dict(color='#2C2C2C', size=12), gridcolor='#EFEFEF')
     )
@@ -170,13 +190,12 @@ with col_graf1:
         <strong>O que este gráfico indica:</strong> Há uma correlação linear positiva clara. Vinhos avaliados com notas superiores 
         (7, 8 e 9) exibem, em média, maior corpo e graduação alcoólica, concentrando-se acima de 11.4%.
     </p>
-    """, unsafe_allow_html=True)
+    """, unsafe_allowed_html=True)
 
 with col_graf2:
     st.subheader("Concentração de Acidez Volátil")
     df_acidez_media = df.groupby('Qualidade')['Acidez Volátil'].mean().reset_index()
     
-    # Aplicação de tom Verde Oliva/Folha para a Acidez
     fig2 = px.bar(df_acidez_media, x="Qualidade", y="Acidez Volátil",
                   text_auto='.2f',
                   labels={"Acidez Volátil": "Acidez Volátil Média (g/dm³)", "Qualidade": "Nota Sensorial (Avaliação)"},
@@ -185,6 +204,7 @@ with col_graf2:
     fig2.update_traces(textfont_color='#FFFFFF', textposition='inside')
     fig2.update_layout(
         showlegend=False, coloraxis_showscale=False, plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)',
+        margin=dict(l=10, r=10, t=30, b=10), # Margens internas responsivas otimizadas
         xaxis=dict(title_font=dict(color='#2C2C2C', size=14), tickfont=dict(color='#2C2C2C', size=12), gridcolor='#EFEFEF'),
         yaxis=dict(title_font=dict(color='#2C2C2C', size=14), tickfont=dict(color='#2C2C2C', size=12), gridcolor='#EFEFEF')
     )
@@ -287,10 +307,10 @@ st.markdown("""
 <div style="margin-top: 15px; padding: 15px; border-left: 3px solid #3A1111; background-color: #F0F0F0;">
     <p style="font-size: 13px; color: #444; line-height: 1.6; margin: 0;">
         <strong>Nota metodológica sobre o cálculo da composição ideal (Alvo Nota 10.0):</strong> 
-        O modelo matemático de Regressão Linear calcula coeficientes de peso para cada uma das 11 variáveis com base no histórico do laboratório[cite: 9, 20]. 
+        O modelo matemático de Regressão Linear calcula coeficientes de peso para cada uma das 11 variáveis com base no histórico do laboratório. 
         Ao acionar a composição recomendada, o sistema mapeia o subconjunto de vinhos reais com as maiores avaliações sensoriais e extrai a média 
-        exata de seus componentes químicos[cite: 7]. Complementarmente, para alcançar o topo absoluto da curva estatística (10.0), o algoritmo aplica as condições 
-        ótimas dos dois principais pilares de impacto identificados no estudo de sensibilidade: maximização do teor alcoólico e minimização da acidez volátil[cite: 11].
+        exata de seus componentes químicos. Complementarmente, para alcançar o topo absoluto da curva estatística (10.0), o algoritmo aplica as condições 
+        ótimas dos dois principais pilares de impacto identificados no estudo de sensibilidade: maximização do teor alcoólico e minimização da acidez volátil.
     </p>
 </div>
 """, unsafe_allow_html=True)
