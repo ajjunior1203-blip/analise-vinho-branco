@@ -4,7 +4,7 @@ import plotly.express as px
 from sklearn.linear_model import LinearRegression
 import numpy as np
 
-# 1. ESTILIZAÇÃO PREMIUM E CSS RESPONSIVO PARA MOBILE
+# 1. ESTILIZAÇÃO, TIPOGRAFIA E CONTRASTE PREMIUM (CSS)
 st.set_page_config(page_title="Análise de Dados: Vinho Verde Branco", layout="wide")
 
 st.markdown("""
@@ -84,17 +84,14 @@ st.markdown("""
         h3 { font-size: 18px !important; }
         h4 { font-size: 16px !important; }
         
-        /* Reduz os blocos vazios e margens que o Streamlit gera */
         div[data-testid="stVerticalBlock"] {
             gap: 0.5rem !important;
         }
         .stMarkdown { margin-bottom: -10px !important; }
         
-        /* Ajusta o tamanho da caixa de score final */
         .score-box { padding: 20px !important; margin-top: 15px !important; }
         .score-value { font-size: 38px !important; }
         
-        /* Minimiza o recuo dos sliders para economizar espaço vertical */
         .slider-label { margin-top: 5px !important; margin-bottom: -20px !important; font-size: 13px; }
     }
 </style>
@@ -144,15 +141,15 @@ except Exception as e:
     st.error(f"Erro ao processar as colunas do arquivo 'dados_vinho.xlsx'. Detalhes: {e}")
     st.stop()
 
-# 3. BARRA LATERAL INFORMATIVA (CONTEÚDO DO SEU TXT)
+# 3. BARRA LATERAL INFORMATIVA
 st.sidebar.header("Contexto Técnico")
 st.sidebar.markdown("""
-Este painel apresenta a modelagem de preferência de vinhos através da mineração de propriedades físico-químicas[cite: 3].
+Este painel apresenta a modelagem de preferência de vinhos através da mineração de propriedades físico-químicas.
 
-* **Origem:** Dados do Vinho Verde Branco português (Cortez et al., 2009)[cite: 1, 12].
-* **Avaliação de Saída:** Baseada em dados sensoriais estruturados[cite: 7]. A nota representa a mediana de pelo menos 3 avaliações independentes realizadas por especialistas do setor[cite: 7].
-* **Escala Sensorial:** Cada avaliador atribuiu uma pontuação de qualidade variando entre 0 (muito ruim) e 10 (excelente)[cite: 8].
-* **Particularidade do Dataset:** As classes não são balanceadas; há uma quantidade significativamente maior de vinhos considerados intermediários ou comuns do que amostras excelentes ou muito ruins[cite: 16].
+* **Origem:** Dados do Vinho Verde Branco português (Cortez et al., 2009).
+* **Avaliação de Saída:** Baseada em dados sensoriais estruturados. A nota representa a mediana de pelo menos 3 avaliações independentes realizadas por especialistas do setor.
+* **Escala Sensorial:** Cada avaliador atribuiu uma pontuação de qualidade variando entre 0 (muito ruim) e 10 (excelente).
+* **Particularidade do Dataset:** As classes não são balanceadas; há uma quantidade significativamente maior de vinhos considerados intermediários ou comuns do que amostras excelentes ou muito ruins.
 """)
 
 # 4. PAINEL DE MÉTRICAS OPERACIONAIS
@@ -180,7 +177,7 @@ with col_graf1:
     fig1.update_traces(textfont_color='#FFFFFF', textposition='inside')
     fig1.update_layout(
         showlegend=False, coloraxis_showscale=False, plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)',
-        margin=dict(l=10, r=10, t=30, b=10), # Margens internas responsivas otimizadas
+        margin=dict(l=10, r=10, t=30, b=10),
         xaxis=dict(title_font=dict(color='#2C2C2C', size=14), tickfont=dict(color='#2C2C2C', size=12), gridcolor='#EFEFEF'),
         yaxis=dict(title_font=dict(color='#2C2C2C', size=14), tickfont=dict(color='#2C2C2C', size=12), gridcolor='#EFEFEF')
     )
@@ -190,7 +187,7 @@ with col_graf1:
         <strong>O que este gráfico indica:</strong> Há uma correlação linear positiva clara. Vinhos avaliados com notas superiores 
         (7, 8 e 9) exibem, em média, maior corpo e graduação alcoólica, concentrando-se acima de 11.4%.
     </p>
-    """, unsafe_allowed_html=True)
+    """, unsafe_allow_html=True)
 
 with col_graf2:
     st.subheader("Concentração de Acidez Volátil")
@@ -204,7 +201,7 @@ with col_graf2:
     fig2.update_traces(textfont_color='#FFFFFF', textposition='inside')
     fig2.update_layout(
         showlegend=False, coloraxis_showscale=False, plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)',
-        margin=dict(l=10, r=10, t=30, b=10), # Margens internas responsivas otimizadas
+        margin=dict(l=10, r=10, t=30, b=10),
         xaxis=dict(title_font=dict(color='#2C2C2C', size=14), tickfont=dict(color='#2C2C2C', size=12), gridcolor='#EFEFEF'),
         yaxis=dict(title_font=dict(color='#2C2C2C', size=14), tickfont=dict(color='#2C2C2C', size=12), gridcolor='#EFEFEF')
     )
