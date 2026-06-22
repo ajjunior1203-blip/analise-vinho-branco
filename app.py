@@ -141,7 +141,29 @@ except Exception as e:
     st.error(f"Erro ao processar as colunas do arquivo 'dados_vinho.xlsx'. Detalhes: {e}")
     st.stop()
 
-# 3. BARRA LATERAL INFORMATIVA
+# 3. CONTEXTUALIZAÇÃO DO LEITOR (SOBRE O ESTUDO)
+st.markdown("---")
+st.header("Sobre o Estudo")
+st.markdown(f"""
+Este projeto utiliza dados científicos baseados em testes laboratoriais e sensoriais aplicados ao **Vinho Verde Branco**, 
+uma variedade única produzida exclusivamente na região demarcada do Minho, no noroeste de Portugal. O objetivo principal é 
+entender como a composição química da bebida influencia diretamente na percepção de qualidade do consumidor final.
+
+### Como o estudo foi realizado?
+* **As Amostras:** Foram analisadas **{len(df):,}** amostras físicas coletadas diretamente de produtores e certificadas pelo laboratório oficial da região.
+* **Avaliação Sensorial:** Cada vinho passou por um teste às cegas realizado por uma banca de especialistas do setor. Eles atribuíram notas de **0 (muito ruim) a 10 (excelente)**. A nota de qualidade final adotada neste estudo representa a mediana dessas avaliações.
+* **Análise de Dados:** Variáveis físico-químicas de cada garrafa foram mapeadas e correlacionadas com as notas, servindo como base para criar o simulador inteligente presente no final desta página.
+
+### O que significam as variáveis analisadas?
+Para facilitar o entendimento, os componentes químicos do vinho podem ser divididos em três grupos principais:
+1. **Estrutura e Acidez:** Componentes como a *Acidez Fixa*, *Acidez Volátil*, *Ácido Cítrico* e o *pH*. Eles determinam o frescor, o equilíbrio de sabores na boca e a estabilidade da bebida.
+2. **Corpo e Doçura:** O *Açúcar Residual* (quantidade de açúcar que sobrou após a fermentação), a *Densidade* e o teor de *Álcool*. Juntos, dão consistência, textura e a sensação de aquecimento ao paladar.
+3. **Conservação e Sais:** Os *Cloretos* (quantidade de sal), o *Sulfato* e os *Dióxidos de Enxofre* (conhecidos popularmente como sulfitos). São fundamentais para proteger o vinho contra bactérias e oxidação ao longo do tempo.
+""".replace(',', '.'))
+
+st.markdown("---")
+
+# 4. BARRA LATERAL INFORMATIVA
 st.sidebar.header("Contexto Técnico")
 st.sidebar.markdown("""
 Este painel apresenta a modelagem de preferência de vinhos através da mineração de propriedades físico-químicas.
@@ -152,7 +174,7 @@ Este painel apresenta a modelagem de preferência de vinhos através da mineraç
 * **Particularidade do Dataset:** As classes não são balanceadas; há uma quantidade significativamente maior de vinhos considerados intermediários ou comuns do que amostras excelentes ou muito ruins.
 """)
 
-# 4. PAINEL DE MÉTRICAS OPERACIONAIS
+# 5. PAINEL DE MÉTRICAS OPERACIONAIS
 col1, col2, col3 = st.columns(3)
 col1.metric("Amostras Processadas", f"{len(df):,}".replace(',', '.'))
 col2.metric("Média Geral de Avaliação", f"{df['Qualidade'].mean():.2f}")
@@ -160,7 +182,7 @@ col3.metric("Graduação Alcoólica Média", f"{df['Álcool'].mean():.1f}%")
 
 st.markdown("---")
 
-# 5. ANÁLISE GRÁFICA TEMÁTICA COM CONTRASTE APERFEIÇOADO
+# 6. ANÁLISE GRÁFICA TEMÁTICA COM CONTRASTE APERFEIÇOADO
 st.header("Comportamento das Variáveis por Faixa de Avaliação")
 
 col_graf1, col_graf2 = st.columns(2)
@@ -214,7 +236,7 @@ with col_graf2:
 
 st.markdown("---")
 
-# 6. SIMULADOR MATEMÁTICO DE VINIFICAÇÃO (MÉTODO MULTIVARIÁVEL)
+# 7. SIMULADOR MATEMÁTICO DE VINIFICAÇÃO (MÉTODO MULTIVARIÁVEL)
 st.header("Simulador de Equilíbrio Químico")
 st.markdown("Ajuste as propriedades para avaliar a estimativa matemática da nota ou carregue a composição recomendada.")
 
@@ -299,14 +321,14 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# 7. OBSERVAÇÃO METODOLÓGICA
+# 8. OBSERVAÇÃO METODOLÓGICA
 st.markdown("""
 <div style="margin-top: 15px; padding: 15px; border-left: 3px solid #3A1111; background-color: #F0F0F0;">
     <p style="font-size: 13px; color: #444; line-height: 1.6; margin: 0;">
         <strong>Nota metodológica sobre o cálculo da composição ideal (Alvo Nota 10.0):</strong> 
         O modelo matemático de Regressão Linear calcula coeficientes de peso para cada uma das 11 variáveis com base no histórico do laboratório. 
         Ao acionar a composição recomendada, o sistema mapeia o subconjunto de vinhos reais com as maiores avaliações sensoriais e extrai a média 
-        exata de seus componentes químicos. Complementarmente, para alcançar o topo absoluto da curva estatística (10.0), o algoritmo aplica as condições 
+        exata de seus componentes químicos. Complementarmente, para alcançar o topo absoluto da curva estatística (10.0), o algorithm aplica as condições 
         ótimas dos dois principais pilares de impacto identificados no estudo de sensibilidade: maximização do teor alcoólico e minimização da acidez volátil.
     </p>
 </div>
